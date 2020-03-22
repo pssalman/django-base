@@ -1,7 +1,7 @@
 # cat -e -t -v Makefile
 .PHONY: all say_hello build up down
 
-all: say_hello up
+all: say_hello down build up access
 
 say_hello:
 	@echo "Hello Django"
@@ -24,7 +24,7 @@ build_no_cache:
 
 run_tests:
 	@echo "Running unit tests in docker containers..."
-	docker-compose run --rm web-1 sh -c "python manage.py test"
+	docker-compose run --rm web-1 sh -c "python manage.py migrate && python manage.py makemigrations && py.test"
 
 generate_secret:
 	@echo "Generating secret key..."
@@ -33,3 +33,8 @@ generate_secret:
 access:
 	@echo "Accessing django app container..."
 	docker-compose exec web-1 sh
+
+start_app:
+	@echo "Creating django app ${app}..."
+	python3 src/manage.py startapp ${app} ${dest}
+

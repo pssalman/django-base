@@ -8,7 +8,7 @@ from django.core.management.base import (
 )
 from django.contrib.auth.models import User
 from django.conf import settings
-# from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 
 
 class Command(BaseCommand):
@@ -21,19 +21,20 @@ class Command(BaseCommand):
         """Handle the create_super command"""
 
         # User = get_user_model()
-        if User.objects.count() == 0:
+        if get_user_model().objects.count() == 0:
             for user in settings.ADMINS:
                 username = user[0].replace(' ', '')
                 email = user[1]
                 password = os.environ.get('ADMIN_PASSWORD', 12345678)
                 print(f'Creating account for {username} - {email}')
-                admin = User.objects.create_superuser(
+                admin = get_user_model().objects.create_superuser(
                     email=email, username=username,
                     password=password
                 )
-                admin.is_active = True
-                admin.is_admin = True
+                #admin.is_active = True
+                #admin.is_admin = True
                 admin.save()
+                print(admin, password)
             self.stdout.write(
                 self.style.SUCCESS(
                     'Successfully created superadmin'

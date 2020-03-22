@@ -25,7 +25,7 @@ services:
         - pssalman/app:latest
       args:
         PROJECT_NAME: bweb
-        ENV: development
+        ENV: testing
         PORT: 8000
         BUILD_NUMBER: 1
         COMMIT_HASH: cdc3b19

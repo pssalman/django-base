@@ -3,6 +3,7 @@ __author__ = 'anton.salman@gmail.com'
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.utils.crypto import get_random_string
+from django.contrib.auth import get_user_model
 
 
 class Command(BaseCommand):
@@ -38,12 +39,12 @@ class Command(BaseCommand):
                 username = get_random_string()
 
             if admin:
-                User.objects.create_superuser(
+                get_user_model().objects.create_superuser(
                     username=username, email='',
                     password='123'
                 )
             else:
-                User.objects.create_user(
+                get_user_model().objects.create_user(
                     username=username, email='',
                     password='123'
                 )

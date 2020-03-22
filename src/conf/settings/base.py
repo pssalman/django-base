@@ -79,6 +79,7 @@ THIRD_APPS = [
     'gunicorn',
     'compressor',
     'corsheaders',
+    'rest_framework',
     #'captcha',
     #'django_celery_results',
     #'rosetta',
@@ -86,6 +87,8 @@ THIRD_APPS = [
 
 COMMON_APPS = [
     'core.apps.CoreConfig',
+    'authentication.apps.AuthenticationConfig',
+    'users.apps.UsersConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_APPS + COMMON_APPS
@@ -178,6 +181,8 @@ SITE_ID = 1
 SECURE_HSTS_PRELOAD = True
 
 PREPEND_WWW = False
+
+AUTH_USER_MODEL = 'authentication.Auth'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
