@@ -1,0 +1,39 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+coverage = "*"
+pytest = "*"
+flake8 = "*"
+pytest-django = "*"
+pytest-cov = "*"
+mixer = "*"
+psycopg2-binary = "*"
+
+[packages]
+django = "*"
+requests = "*"
+psutil = "*"
+django-cors-headers = "*"
+django-health-check = "*"
+django-compressor = "*"
+celery = "*"
+django-celery-beat = "*"
+django-celery-results = "*"
+django-log-request-id = "*"
+django-model-utils = "*"
+argon2-cffi = "*"
+environs = {extras = ["django"],version = "*"}
+gunicorn = "*"
+uvicorn = "*"
+djangorestframework = "*"
+markdown = "*"
+django-filter = "*"
+djangorestframework-api-key = "*"
+django-activity-stream = "*"
+psycopg2 = "*"
+
+[requires]
+python_version = "3.6"

@@ -1,0 +1,21 @@
+[flake8]
+exclude =
+  .git,
+  migrations
+  __pycache__,
+  manage.py,
+  settings.py,
+  production.py,
+  staging.py,
+  local.py,
+  testing.py,
+  base.py,
+  original.py,
+  development.py,
+  apps/common/core/management/commands/startapp.py,
+  apps/common/core/management/commands/generate_secretkey.py,
+  apps/common/core/management/commands/celery.py,
+  apps/common/core/management/commands/has_missing_migrations.py,
+  build,
+  dist
+max-complexity = 10

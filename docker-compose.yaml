@@ -1,0 +1,114 @@
+version: '3.7'
+
+services:
+  cache-1:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      target: build
+      cache_from:
+        - pssalman/app-cache:latest
+      labels:
+        com.example.description: "BWEB Webapp Cache"
+        com.example.department: "IT"
+        com.example.label-with-empty-value: ""
+    image: pssalman/app-cache:latest
+    networks:
+      - buildnet
+  web-1: &python
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      cache_from:
+        - pssalman/app-cache:latest
+        - pssalman/app:latest
+      args:
+        PROJECT_NAME: bweb
+        ENV: development
+        PORT: 8000
+        BUILD_NUMBER: 1
+        COMMIT_HASH: cdc3b19
+        ADMIN_PASSWORD: 'tony8227'
+      labels:
+        com.example.description: "BWEB Webapp"
+        com.example.department: "IT"
+        com.example.label-with-empty-value: ""
+    image: pssalman/app:latest
+    container_name: wz01
+    hostname: wz01
+    environment:
+      ADMIN_PASSWORD: 'tony8227'
+    expose:
+      - 8000
+    volumes:
+      - web-django:/app/src
+      - web-static:/app/src/public/static
+      - web-media:/app/src/public/media
+      - sql-django:/app/src/run
+    depends_on:
+      - database-1
+      - cache-1
+    networks:
+      - buildnet
+      - dbnet
+      - webnet
+  database-1:
+    restart: always
+    image: postgres:11.1-alpine
+    container_name: dz01
+    hostname: dz01
+    environment:
+      POSTGRES_USER: 'bweb_usr'
+      POSTGRES_PASSWORD: 'bweb#18@local'
+      POSTGRES_DB: 'bweb_db'
+      POSTGRES_PORT: 5432
+    ports:
+      - 5432:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - dbnet
+  nginx-1:
+    restart: always
+    build: 
+      context: ./nginx/
+      dockerfile: Dockerfile
+      args:
+        PROJECT_NAME: bweb
+        ENV: prod
+        BUILD_NUMBER: 1
+        COMMIT_HASH: cdc3b19
+      labels:
+        com.example.description: "Nginx Proxy Web Server"
+        com.example.department: "IT"
+        com.example.label-with-empty-value: ""
+    image: pssalman/nginx:latest
+    container_name: nz01
+    hostname: nz01
+    ports:
+      - 80:80
+    volumes:
+      - web-static:/app/src/public/static
+      - web-media:/app/src/public/media
+    depends_on:
+      - web-1
+    networks:
+      - webnet
+volumes:
+  pgdata:
+  web-django:
+  web-static:
+  web-media:
+  sql-django:
+networks:
+  # docker network create composenet
+  #default:
+  #  external:
+  #    name: composenet
+  webnet:
+    driver: bridge
+  dbnet:
+    driver: bridge
+  buildnet:
+    driver: bridge
