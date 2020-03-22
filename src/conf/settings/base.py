@@ -21,15 +21,16 @@ DATE_INPUT_FORMATS = ('%d-%m-%Y', '%Y-%m-%d')
 DJANGO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = os.path.dirname(DJANGO_ROOT)
 SITE_NAME = os.path.basename(DJANGO_ROOT)
+APPS_ROOT = os.path.join(PROJECT_ROOT, 'apps')
 PUBLIC_ROOT = os.path.join(PROJECT_ROOT, 'public')
 RUN_ROOT = os.path.join(PROJECT_ROOT, 'run')
 LOGGING_ROOT = os.path.join(PROJECT_ROOT, 'logs')
 ENVIRONMET_ROOT = os.path.join(
     os.path.dirname(PROJECT_ROOT), 'environments', 'django')
 
-sys.path.append(os.path.normpath(os.path.join(PROJECT_ROOT, 'apps')))
+sys.path.append(os.path.normpath(APPS_ROOT))
 sys.path.append(os.path.normpath(
-    os.path.join(PROJECT_ROOT, 'apps', 'common')))
+    os.path.join(APPS_ROOT, 'common')))
 
 env = Env()
 env.read_env(os.path.join(

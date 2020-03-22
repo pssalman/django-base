@@ -3,9 +3,27 @@ source = .
 omit = */tests/*
        */migrations/*
        */node_modules/*
+       conf/settings/*
+       conf/asgi.py
+       conf/wsgi.py
+       manage.py
+       apps/common/core/task.py
+       conf/celery.py
+       conf/urls.py
+
 branch = True
 
 [report]
+exclude_lines =
+    noqa
+    pragma: no cover
+    def __unicode__
+    def __repr__
+    def __str__
+    if settings\.DEBUG
+    raise AssertionError
+    raise NotImplementedError
+    assert
 fail_under = 100
 show_missing = True
 skip_covered = True
