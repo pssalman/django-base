@@ -7,7 +7,9 @@ python manage.py wait_for_db
 #python manage.py flush --no-input
 python manage.py makemigrations
 python manage.py migrate --no-input
+# python manage.py create_super --username command --email command@line.com --password 12345678
 python manage.py create_super
+
 python manage.py collectstatic --no-input
 
 python manage.py compilemessages

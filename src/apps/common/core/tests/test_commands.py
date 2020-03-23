@@ -21,3 +21,21 @@ class CommandTests(TestCase):
             gi.side_effect = [OperationalError] * 5 + [True]
             call_command('wait_for_db')
             self.assertEqual(gi.call_count, 6)
+
+    def test_create_super_user(self):
+        pass
+
+    def test_create_another_super_user(self):
+        pass
+
+    def test_create_normal_user(self):
+        pass
+
+    def test_create_multiple_users(self):
+        pass
+
+    def test_generate_secret_key(self):
+        pass
+
+    def test_has_missing_migrations(self):
+        pass

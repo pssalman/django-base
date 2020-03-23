@@ -29,7 +29,6 @@ services:
         PORT: 8000
         BUILD_NUMBER: 1
         COMMIT_HASH: cdc3b19
-        ADMIN_PASSWORD: 'tony8227'
       labels:
         com.example.description: "BWEB Webapp"
         com.example.department: "IT"
@@ -38,7 +37,9 @@ services:
     container_name: wz01
     hostname: wz01
     environment:
-      ADMIN_PASSWORD: 'tony8227'
+        ADMIN_PASSWORD: 'tony8227'
+        ADMIN_USER: 'pssalman'
+        ADMIN_EMAIL: 'tony.salmman@hotmail.com'
     expose:
       - 8000
     volumes:
